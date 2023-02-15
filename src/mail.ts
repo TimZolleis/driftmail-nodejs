@@ -3,7 +3,7 @@ import {Recipient} from "./recipient";
 
 export class Mail {
     private readonly template: string;
-    private variables: Variable[]
+    private variables: Variable
     private recipients: Recipient[];
 
     constructor(template: string) {
@@ -13,12 +13,18 @@ export class Mail {
     }
 
     addVariable(variable: Variable) {
-        this.variables.push(variable);
+        this.variables = {
+            ...this.variables,
+            ...variable
+        }
         return this;
     }
 
     addVariables(variables: Variable[]) {
-        this.variables.push(...variables);
+        this.variables = {
+            ...this.variables,
+            ...variables
+        }
         return this;
     }
 
@@ -43,3 +49,4 @@ export class Mail {
     }
 }
 
+const mail = new Mail('my-template');
