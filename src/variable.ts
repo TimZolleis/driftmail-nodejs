@@ -1,0 +1,1 @@
+export type Variable = {[key: string]: string | Object}
