@@ -2,6 +2,7 @@ import {Mail} from "./mail";
 import axios, {AxiosInstance} from "axios";
 import {DriftmailGetStatusRequestResponse} from "./GetStatusRequestResponse";
 
+
 export class DriftmailClient {
     private readonly apiKey: string;
     private readonly serviceUrl: string;
@@ -26,12 +27,11 @@ export class DriftmailClient {
 
     async send(mail: Mail) {
         const response = await this.client.post('/api/mail/send', mail.getRequestObject())
-        return response.data.request_id
+        return <string>response.data.request_id
     }
 
     async getStatus(request_id: string) {
         const response = await this.client.get(`/api/mail/status/${request_id}`);
         return <DriftmailGetStatusRequestResponse>response.data.jobs
     }
-
 }
