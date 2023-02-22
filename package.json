@@ -1,7 +1,7 @@
 {
   "name": "driftmail",
   "description": "This is a library for interacting with the driftmail service api.",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "main": "build/index.js",
   "author": "Tim Zolleis",
   "license": "MIT",
