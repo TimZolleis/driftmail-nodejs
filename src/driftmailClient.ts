@@ -1,6 +1,6 @@
 import {Mail} from "./mail";
 import axios, {AxiosInstance} from "axios";
-import {DriftmailGetStatusRequestResponse} from "./GetStatusRequestResponse";
+import {DriftmailGetStatusRequestResponse, DriftMailStatusResponse, JobResponse} from "./GetStatusRequestResponse";
 
 
 export class DriftmailClient {
@@ -32,6 +32,16 @@ export class DriftmailClient {
 
     async getStatus(request_id: string) {
         const response = await this.client.get(`/api/mail/status/${request_id}`);
-        return <DriftmailGetStatusRequestResponse>response.data.jobs
+        const jobs: JobResponse[] = response.data.jobs
+        const successfulJobs = jobs.filter(job => {
+            return job.status === "sent"
+        })
+        const failedJobs = jobs.filter(job => {
+            return job.status === "failed"
+        })
+        const waitingJobs = jobs.filter(job => {
+            return job.status === "waiting" || job.status === "sending"
+        })
+        return new DriftMailStatusResponse(jobs, failedJobs, successfulJobs, waitingJobs)
     }
 }

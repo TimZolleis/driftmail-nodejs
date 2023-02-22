@@ -104,7 +104,18 @@ import {DriftmailClient} from "driftmail"
 
 const client = new DriftmailClient();
 const jobs = await client.getStatus(requestId);
-const failedJobs = jobs.map(job => {
-    return job.status.includes('failed')
-})
+```
+This status is now a class that prefilters waiting, failed and successful jobs for you.
+
+```typescript
+import {DriftmailClient} from "driftmail"
+
+const client = new DriftmailClient();
+const jobs = await client.getStatus(requestId);
+
+
+const allJobs = jobs.getAll();
+const failedJobs = jobs.getFailed();
+const successfulJobs = jobs.getSuccessful();
+const waitingJobs = jobs.getWaiting();
 ```
