@@ -4,11 +4,12 @@ import {Recipient} from "./recipient";
 export class Mail {
     private readonly template: string;
     private variables: Variable
-    private recipients: Recipient[];
+    private readonly recipients: Recipient[];
 
-    constructor(template: string) {
+    constructor(template: string, variables?: Variable) {
         this.template = template;
         this.recipients = [];
+        this.variables = variables ? variables : {}
         return this;
     }
 
@@ -21,10 +22,12 @@ export class Mail {
     }
 
     addVariables(variables: Variable[]) {
-        this.variables = {
-            ...this.variables,
-            ...variables
-        }
+        variables.forEach(variable => {
+            this.variables = {
+                ...this.variables,
+                ...variable
+            }
+        })
         return this;
     }
 

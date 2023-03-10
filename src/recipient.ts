@@ -17,9 +17,12 @@ export class Recipient {
     }
 
     public addVariables(variables: Variable[]) {
-        this.variables = {
-            ...this.variables,
-            ...variables
-        }
+        variables.forEach(variable => {
+            this.variables = {
+                ...this.variables,
+                ...variable
+            }
+        })
+
     }
 }
