@@ -22,7 +22,13 @@ export class Mail {
     }
 
     addVariables(variables: Variable[]) {
-        variables.forEach(variable => {
+        const parsedVariables = variables.map(variable => {
+            return {
+                ...this.variables,
+                ...variable
+            }
+        })
+        parsedVariables.forEach(variable => {
             this.variables = {
                 ...this.variables,
                 ...variable
